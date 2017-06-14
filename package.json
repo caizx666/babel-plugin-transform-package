@@ -1,0 +1,20 @@
+{
+  "name": "babel-plugin-transform-package",
+  "version": "1.0.0",
+  "description": "Class with bundleName and bundleVersion",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "babel": "^5.6.0"
+  },
+  "scripts": {
+    "compile": "babel src --out-dir lib --source-maps",
+    "watch": "babel --watch   src --out-dir lib --source-maps",
+    "build": "babel-plugin build",
+    "push": "babel-plugin publish",
+    "test": "babel-plugin test"
+  },
+  "keywords": [
+    "babel-plugin"
+  ]
+}
