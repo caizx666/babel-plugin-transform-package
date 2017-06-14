@@ -1,15 +1,18 @@
 {
   "name": "babel-plugin-transform-package",
   "version": "1.0.0",
-  "description": "Class with bundleName and bundleVersion",
+  "description": "Add __module and __version to ES6 classes ",
   "license": "MIT",
   "main": "lib/index.js",
+  "repository": "https://github.com/saas-plat/babel-plugin-transform-package",
   "devDependencies": {
     "babel": "^5.6.0"
   },
   "scripts": {
     "compile": "babel src --out-dir lib --source-maps",
     "watch": "babel --watch   src --out-dir lib --source-maps",
+    "prepare": "npm run compile",
+    "pub": "npm publish --registry http://registry.npmjs.org",
     "build": "babel-plugin build",
     "push": "babel-plugin publish",
     "test": "babel-plugin test"
