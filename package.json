@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-transform-package",
-  "version": "1.0.0",
-  "description": "Add __module and __version to ES6 classes ",
+  "version": "1.0.1",
+  "description": "Add $packageName and $packageVersion to ES6 classes ",
   "license": "MIT",
   "main": "lib/index.js",
   "repository": "https://github.com/saas-plat/babel-plugin-transform-package",

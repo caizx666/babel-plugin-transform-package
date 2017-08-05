@@ -23,11 +23,11 @@ export default function({
         }
         return [t.assignmentExpression(
             "=",
-            t.memberExpression(ref, t.identifier("__module")),
+            t.memberExpression(ref, t.identifier("$packageName")),
             t.stringLiteral(packagejson.name)
         ), t.assignmentExpression(
             "=",
-            t.memberExpression(ref, t.identifier("__version")),
+            t.memberExpression(ref, t.identifier("$packageVersion")),
             t.stringLiteral(packagejson.version)
         )];
     }
