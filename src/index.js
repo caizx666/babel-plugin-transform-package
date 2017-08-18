@@ -8,8 +8,8 @@ export default function({
     const VISITED = Symbol();
 
     function addBundleName(path, ref, state) {
-        let packagejson = {};
-        const ps = state.file.opts.sourceFileName.split(p.sep);
+        let packagejson;
+        let ps = state.file.opts.sourceFileName.split(p.sep);
         for (let i = ps.length; i > 0; i--) {
             const searchPath = ps.slice(0, i - 1).join(p.sep);
             const packagefile = p.join(state.file.opts.sourceRoot, searchPath, 'package.json');
@@ -20,6 +20,42 @@ export default function({
                 }
                 break;
             }
+        }
+        if (!packagejson) {
+            // 没有找到package.json，试试workdir
+            let fullpath = p.join(state.file.opts.sourceRoot, state.file.opts.sourceFileName);
+            ps = fullpath.substr(process.cwd().length + 1).split(p.sep);
+            for (let i = ps.length; i > 0; i--) {
+                const searchPath = ps.slice(0, i - 1).join(p.sep);
+                const packagefile = p.join(process.cwd(), searchPath, 'package.json');
+                if (fs.existsSync(packagefile)) {
+                    const cnt = fs.readFileSync(packagefile);
+                    if (cnt) {
+                        packagejson = JSON.parse(cnt);
+                    }
+                    break;
+                }
+            }
+        }
+        if (!packagejson) {
+            // 还没有只能往上找package.json文件了
+            ps = state.file.opts.sourceRoot.split(p.sep);
+            for (let i = ps.length; i > 0; i--) {
+                const searchPath = ps.slice(0, i - 1).join(p.sep);
+                const packagefile = p.join(searchPath, 'package.json');
+                if (fs.existsSync(packagefile)) {
+                    const cnt = fs.readFileSync(packagefile);
+                    if (cnt) {
+                        packagejson = JSON.parse(cnt);
+                    }
+                    break;
+                }
+            }
+        }
+        if (!packagejson) {
+            // 还没，没办法了
+            console.log('not found package.json', state.file.opts.sourceFileName);
+            return [];
         }
         return [t.assignmentExpression(
             "=",
