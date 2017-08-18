@@ -1,6 +1,6 @@
 # babel-plugin-transform-package
 
-Add __module and __version to ES6 classes 
+Add $packageName and $packageVersion to ES6 classes 
 
 ## Installation
 
